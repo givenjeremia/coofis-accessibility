@@ -27,7 +27,7 @@ import en from "../../i18/locale/en.json";
 import usePersistenceLayout from "../../hooks/usePersistenceLayout/usePersistenceLayout";
 
 i18n.use(LanguageDetector).use(initReactI18next);
-const ACC_LOCAL_STORAGE_KEY = "Coofis_Accessibility";
+const ACC_LOCAL_STORAGE_KEY = "coofis_accessibility";
 const READING_GUIDE_PORTAL_ID = "acc-portal-[readingGuide-container]";
 
 const CoofisAccessibility: FC = () => {
