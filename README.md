@@ -24,7 +24,7 @@ pnpm add github:givenjeremia/coofis-accessibility
 Then use it in your app:
 
 ```js
-import CoofisAccessibility from 'accessibility-react-widget';
+import CoofisAccessibility from 'coofis-accessibility';
 
 export default function App() {
 
