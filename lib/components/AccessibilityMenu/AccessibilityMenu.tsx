@@ -4,15 +4,15 @@ import Header from "../Header/Header";
 import { AccessibilikState, ChangeAccDraftHander } from "../../types";
 import { produce } from "immer";
 import Footer from "../Footer/Footer";
-import Select from "react-select";
+// import Select from "react-select";
 import styled from "./AccessibilityMenu.module.scss";
 import AccMenuContent from "../AccMenuContent/AccMenuContent";
 import {
   CollapsedState,
   CollapsedStateKeys,
   collapsedStateInit,
-  langMap,
-  langOptions,
+  // langMap,
+  // langOptions,
 } from "../../config";
 
 interface AccessibilityMenuProps {
@@ -30,15 +30,15 @@ const AccessibilityMenu: FC<AccessibilityMenuProps> = ({
   accState,
   display,
   onInit,
-  onLangChange,
+  // onLangChange,
   onChangeAccState,
   onShow,
   showAcc,
-  hasLanguages
+  // hasLanguages
 }) => {
   const [collapsedState, setCollapsedState] =
     useState<CollapsedState>(collapsedStateInit);
-  const { language } = accState;
+  // const { language } = accState;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectRef = useRef<any>(null);
   useEffect(() => {

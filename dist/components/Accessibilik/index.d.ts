@@ -1,3 +1,3 @@
 import { FC } from "react";
-declare const Accessibilik: FC;
-export default Accessibilik;
+declare const CoofisAccessibility: FC;
+export default CoofisAccessibility;
