@@ -1,0 +1,113 @@
+.accMenuContentBlock {
+  border: 0.3px solid #2c2639;
+  border-radius: 16px; // ✅ rounded utama
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  max-height: calc(100vh / 3 - 83px);
+  flex-grow: 1;
+
+  padding: 10px 8px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 10;
+
+  transition: max-height 0.3s linear, box-shadow 0.25s ease,
+    transform 0.25s ease;
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid #2c2639;
+  }
+
+  &.isExpanded {
+    cursor: auto;
+    flex: 1;
+    max-height: 100%;
+    border: none;
+    border-radius: 16px;
+    box-shadow: none;
+  }
+
+  &.isAccMenuContentActive:not(.isExpanded) {
+    display: none;
+  }
+
+  &__titleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+
+    svg {
+      width: 30px;
+      fill: #000;
+    }
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    text-transform: capitalize;
+    margin: 0;
+    padding: 0.2em;
+  }
+
+  &__expendButtonContainer {
+    width: 100%;
+    display: flex;
+    margin-bottom: 12px;
+
+    button {
+      width: 80%;
+      height: 46px;
+
+      margin: auto;
+
+      display: flex; 
+      align-items: center;  
+      justify-content: center;
+      gap: 8px;
+
+      border: none;
+      outline: none;
+      cursor: pointer;
+
+      background-color: var(--primary-color);
+      border-radius: 20px;
+
+      transition: opacity 0.2s ease, transform 0.2s ease;
+
+      & > svg {
+        fill: white;
+        width: 24px;
+      }
+
+      &:hover {
+        opacity: 0.85;
+        transform: scale(1.02);
+      }
+    }
+  }
+  &__content {
+    width: 100%;
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+
+    overflow: auto;
+  }
+}

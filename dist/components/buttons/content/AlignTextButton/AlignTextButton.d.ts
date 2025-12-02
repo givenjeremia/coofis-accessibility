@@ -1,0 +1,11 @@
+import { AccessibilikState, ChangeAccDraftHander } from "../../../../types";
+import React from "react";
+type Direction = "right" | "center" | "left";
+interface AlignTextButtonProps {
+    direction: Direction;
+    accState: AccessibilikState;
+    onChangeAccState: (fn: ChangeAccDraftHander) => void;
+    translationKey: string;
+}
+declare const _default: React.NamedExoticComponent<AlignTextButtonProps>;
+export default _default;

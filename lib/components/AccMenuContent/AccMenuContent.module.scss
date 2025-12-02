@@ -1,0 +1,28 @@
+.accMenuContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 20px;
+}
+
+/* 🔥 SAAT ADA EXPANDED → 1 KOLOM */
+.singleColumn {
+  grid-template-columns: 1fr;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .accMenuContent {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .singleColumn {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .accMenuContent {
+    grid-template-columns: 1fr;
+  }
+}

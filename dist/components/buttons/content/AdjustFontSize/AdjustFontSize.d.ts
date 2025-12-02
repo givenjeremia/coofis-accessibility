@@ -1,0 +1,8 @@
+import { FC } from "react";
+import { AccessibilikState, ChangeAccDraftHander } from "../../../../types";
+interface AdjustFontSizeProps {
+    accState: AccessibilikState;
+    onChangeAccState: (fn: ChangeAccDraftHander) => void;
+}
+declare const AdjustFontSize: FC<AdjustFontSizeProps>;
+export default AdjustFontSize;

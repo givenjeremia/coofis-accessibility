@@ -1,0 +1,2 @@
+import { TextAlign } from "../../../../types";
+export declare const useAlignTextButton: (textAlign: TextAlign, isGettingReady?: boolean) => void;
