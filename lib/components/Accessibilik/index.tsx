@@ -32,7 +32,7 @@ const READING_GUIDE_PORTAL_ID = "acc-portal-[readingGuide-container]";
 
 const CoofisAccessibility: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [hasLanguages, setHasLanguages] = useState(false);
+  // const [hasLanguages, setHasLanguages] = useState(false);
   const isTraversing = useFontSizeTraverse();
   const nodeListUpdated = useFontSizeMutationObserver();
   const [accState, setAccState] = useSessionStorage<AccessibilikState>(
@@ -44,15 +44,15 @@ const CoofisAccessibility: FC = () => {
   usePersistenceLayout({ accState, isGettingReady, nodeListUpdated });
   const direction = rtlLanguages.includes(accState.language) ? "rtl" : "ltr";
 
-  const changeLanguageHandler = (langCode: string) => {
-    i18n.changeLanguage(langCode, () => {
-      setAccState((p) => {
-        return produce(p, (draft) => {
-          draft.language = langCode;
-        });
-      });
-    });
-  };
+  // const changeLanguageHandler = (langCode: string) => {
+  //   i18n.changeLanguage(langCode, () => {
+  //     setAccState((p) => {
+  //       return produce(p, (draft) => {
+  //         draft.language = langCode;
+  //       });
+  //     });
+  //   });
+  // };
   const changeAccessibilikStateHandler = (fn: ChangeAccDraftHander) => {
     setAccState((p) => {
       return produce(p, fn);
@@ -82,7 +82,7 @@ const CoofisAccessibility: FC = () => {
           resources,
         });
         i18n.languages = languages;
-        setHasLanguages(true);
+        // setHasLanguages(true);
       })
       .catch(() => {
         i18n.init({
@@ -119,11 +119,10 @@ const CoofisAccessibility: FC = () => {
             display={showAcc ? "block" : "none"}
             showAcc={showAcc}
             accState={accState}
-            onLangChange={changeLanguageHandler}
             onChangeAccState={changeAccessibilikStateHandler}
             onInit={initAccessibilikStateHandler}
             onShow={renderAccHandler}
-            hasLanguages={hasLanguages}
+            // hasLanguages={hasLanguages}
           />
         </div>
       </Portal>

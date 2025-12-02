@@ -5,12 +5,10 @@
   padding: 20px;
 }
 
-/* 🔥 SAAT ADA EXPANDED → 1 KOLOM */
 .singleColumn {
   grid-template-columns: 1fr;
 }
 
-/* responsive */
 @media (max-width: 900px) {
   .accMenuContent {
     grid-template-columns: repeat(2, 1fr);

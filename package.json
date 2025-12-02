@@ -76,13 +76,15 @@
     "uglifyUmd": "uglifyjs ./dist/accessibility-react-widget.umd.cjs -o ./dist/accessibilik.umd.min.cjs --compress --mangle",
     "prepublishOnly": "npm run build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:umd": "tsc --p ./tsconfig-build.json && vite build --config vite.umd.config.ts"
   },
   "peerDependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
