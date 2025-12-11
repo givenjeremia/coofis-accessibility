@@ -17,10 +17,10 @@ import { getAccInitState} from "../../utils";
 
 import { initReactI18next } from "react-i18next";
 import {
-  Resources,
-  getLanguagePromises,
-  languageArray,
-  languages,
+  // Resources,
+  // getLanguagePromises,
+  // languageArray,
+  // languages,
   rtlLanguages,
 } from "./../../i18/locale";
 import en from "../../i18/locale/en.json";
@@ -65,40 +65,53 @@ const CoofisAccessibility: FC = () => {
   const renderAccHandler = () => {
     setShowAcc((p) => !p);
   };
-
   useEffect(() => {
-    const promises = getLanguagePromises();
-    const resources: Resources = {};
-    Promise.all(promises)
-      .then((langs) => {
-        languageArray.forEach((item, index) => {
-          resources[item.lang] = {
-            translation: langs[index],
-          };
-        });
-        i18n.init({
-          // debug: true,
-          fallbackLng: "he-IL",
-          resources,
-        });
-        i18n.languages = languages;
-        // setHasLanguages(true);
-      })
-      .catch(() => {
-        i18n.init({
-          fallbackLng: "en",
-          resources: {
-            en: {
-              translation: en,
-            },
-          },
-        });
-      })
-      .finally(() => {
-        setIsLoading(false);
-        // registerDomain();
-      });
+    i18n.init({
+      fallbackLng: "en",
+      resources: {
+        en: {
+          translation: en,
+        },
+      },
+    });
+  
+    setIsLoading(false);
   }, []);
+  
+
+  // useEffect(() => {
+  //   const promises = getLanguagePromises();
+  //   const resources: Resources = {};
+  //   Promise.all(promises)
+  //     .then((langs) => {
+  //       languageArray.forEach((item, index) => {
+  //         resources[item.lang] = {
+  //           translation: langs[index],
+  //         };
+  //       });
+  //       i18n.init({
+  //         // debug: true,
+  //         fallbackLng: "he-IL",
+  //         resources,
+  //       });
+  //       i18n.languages = languages;
+  //       // setHasLanguages(true);
+  //     })
+  //     .catch(() => {
+  //       i18n.init({
+  //         fallbackLng: "en",
+  //         resources: {
+  //           en: {
+  //             translation: en,
+  //           },
+  //         },
+  //       });
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //       // registerDomain();
+  //     });
+  // }, []);
 
   if (isGettingReady)
     return <AccessibilityButton showSpinner={isGettingReady} />;

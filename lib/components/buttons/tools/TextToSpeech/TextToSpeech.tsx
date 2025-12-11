@@ -1,12 +1,13 @@
 import { FC, useEffect, useRef, useState } from "react";
-import Select, { SingleValue } from "react-select";
+// import Select, { SingleValue } from "react-select";
+// import { SingleValue } from "react-select";
+
 import { AccessibilikState, ChangeAccDraftHander } from "../../../../types";
 import AccButton from "../../AccButton/AccButton";
 import TextToSpeachIcon from "./../../../../assets/icons/textToSpeach.svg?react";
 import styled from "./TextToSpeech.module.scss";
 
-const NOT_SUPPORT_MSG =
-  "Sorry, your browser does not support text-to-speech!";
+const NOT_SUPPORT_MSG = "Sorry, your browser does not support text-to-speech!";
 const DEFAULT_LANG = "id-ID";
 
 interface TextToSpeechProps {
@@ -28,9 +29,6 @@ const TextToSpeech: FC<TextToSpeechProps> = ({
 
   const voices = useRef<SpeechSynthesisVoice[]>([]);
 
-  /* ======================================================
-     LOAD VOICES (EVENT-DRIVEN ✅) + FORCE id-ID
-     ====================================================== */
   useEffect(() => {
     if (!activateTextToSpeech) return;
 
@@ -50,7 +48,6 @@ const TextToSpeech: FC<TextToSpeechProps> = ({
 
       voices.current = Object.values(map);
 
-      // ✅ HARD FORCE id-ID
       const selectedVoice =
         voices.current.find((v) => v.lang === "id-ID") ||
         voices.current.find((v) => v.lang.startsWith("id")) ||
@@ -62,7 +59,7 @@ const TextToSpeech: FC<TextToSpeechProps> = ({
       setGettingLanguages(false);
     };
 
-    loadVoices(); // initial
+    loadVoices();
     window.speechSynthesis.onvoiceschanged = loadVoices;
 
     return () => {
@@ -70,19 +67,15 @@ const TextToSpeech: FC<TextToSpeechProps> = ({
     };
   }, [activateTextToSpeech]);
 
-  /* ======================================================
-     SPEAK SELECTED TEXT (FORCE LANG ✅)
-     ====================================================== */
   useEffect(() => {
     if (!activateTextToSpeech) return;
     if (!browserHasSupport || gettingLanguages) return;
 
     const speakText = (text: string) => {
       const utterance = new SpeechSynthesisUtterance(text);
-
       if (voice) utterance.voice = voice;
 
-      utterance.lang = DEFAULT_LANG; // ✅ FORCE LANGUAGE (PENTING)
+      utterance.lang = DEFAULT_LANG;
       utterance.rate = 1;
       utterance.pitch = 1;
       utterance.volume = 1;
@@ -100,9 +93,56 @@ const TextToSpeech: FC<TextToSpeechProps> = ({
     return () => document.removeEventListener("mouseup", handleSelection);
   }, [activateTextToSpeech, browserHasSupport, gettingLanguages, voice]);
 
-  const selectVoiceHandler = (v: SingleValue<SpeechSynthesisVoice>) => {
-    if (v) setVoice(v);
-  };
+  useEffect(() => {
+    if (!activateTextToSpeech) return;
+    if (!browserHasSupport || gettingLanguages) return;
+
+    const handleHoverLink = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      if (target instanceof HTMLAnchorElement && target.href) {
+        const text = target.innerText.trim();
+        if (text.length > 1) {
+          const utterance = new SpeechSynthesisUtterance(text);
+
+          if (voice) utterance.voice = voice;
+          utterance.lang = DEFAULT_LANG;
+
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(utterance);
+        }
+      }
+    };
+
+    document.addEventListener("mouseover", handleHoverLink);
+    return () => document.removeEventListener("mouseover", handleHoverLink);
+  }, [activateTextToSpeech, browserHasSupport, gettingLanguages, voice]);
+
+
+  useEffect(() => {
+    if (!activateTextToSpeech) return;
+    if (!browserHasSupport || gettingLanguages) return;
+
+    const alreadyWelcomed = localStorage.getItem("tts_welcome_done");
+
+    if (!alreadyWelcomed) {
+      const message = "Mode suara telah aktif. Silakan arahkan kursor atau pilih teks untuk mendengarkan.";
+
+      const utterance = new SpeechSynthesisUtterance(message);
+      if (voice) utterance.voice = voice;
+
+      utterance.lang = DEFAULT_LANG;
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+
+      localStorage.setItem("tts_welcome_done", "true");
+    }
+  }, [activateTextToSpeech, browserHasSupport, gettingLanguages, voice]);
+
+  // const selectVoiceHandler = (v: SingleValue<SpeechSynthesisVoice>) => {
+  //   if (v) setVoice(v);
+  // };
 
   const toggleTextToSpeechHandler = () => {
     onChangeAccState((draft) => {
@@ -124,20 +164,21 @@ const TextToSpeech: FC<TextToSpeechProps> = ({
         onClick={(e) => e.stopPropagation()}
         className={styled.accSelectWrapper}
       >
-        <Select<SpeechSynthesisVoice>
+        {/* <Select<SpeechSynthesisVoice>
           className={styled.accSelectVoicesContainer}
           classNamePrefix="accSelectVoices"
           options={voices.current}
-          value={voice} 
+          value={voice}
           onChange={selectVoiceHandler}
           isClearable={false}
-          getOptionLabel={(v: SpeechSynthesisVoice) => `${v.lang} — ${v.name}`}
+          getOptionLabel={(v: SpeechSynthesisVoice) => `${v.lang}`}
           getOptionValue={(v: SpeechSynthesisVoice) => `${v.lang}-${v.name}`}
           menuPlacement="auto"
-        />
+        /> */}
       </div>
     );
   };
+
   return (
     <AccButton
       Icon={TextToSpeachIcon}
